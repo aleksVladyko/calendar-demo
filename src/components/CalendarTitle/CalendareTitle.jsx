@@ -8,7 +8,7 @@ const HeaderWrapper = styled.header`
   top: 0;
   left: 0;
   right: 0;
-  background-color: ${props => props.theme.calendar_bg};
+  background-color: #fff;
 `;
 
 const HeaderText = styled.div`
