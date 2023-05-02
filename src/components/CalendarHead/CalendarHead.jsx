@@ -4,19 +4,34 @@ import arrow from "../../img/arrow.svg"
 
 const HeadContainer = styled.div`
 background-color: #eee;
-
 `;
 const WeekContainer = styled.div`
 display: grid;
 grid-template-columns: repeat(7, 1fr);
-height: 40px;
+grid-template-row: repeat(2, 1fr);
+min-height: 60px;
 margin-left: 60px;
 font-size: 20px;
 font-weight: bold;
 
 `;
 const WeekOfDays = styled.div`
-margin-top: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+
+`;
+const WeekDayValue = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+height: 50px;
+font-size: 26px;
+cursor: pointer;
+`;
+const Month = styled.div`
+`;
+const Year = styled.div`
 `;
 // const NavDay = styled.td`
 //   cursor: pointer;
@@ -61,14 +76,16 @@ margin-top: 5px;
 //   }
 // `;
 
-// const NavCurrentMonth = styled.td`
-//   font-size: 24px;
-//   font-weight: bold;
-//   text-align: center;
-//   @media (max-width: 600px) {
-//     font-size: 18px;
-//   }
-// `;
+const NavCurrentMonth = styled.div`
+display: flex;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  gap: 10px;
+  @media (max-width: 600px) {
+    font-size: 18px;
+  }
+`;
 
 const NextWeek = styled.div`
   background-image: url(${arrow});
@@ -92,30 +109,44 @@ const PrevWeek = styled(NextWeek)`
 const CalendarHead = () => {
   
   const [date, setDate] = useState(new Date());
-  const first = date.getDate() - date.getDay();
-  const lastDayofWeek = new Date(date.setDate(first + 6)).toLocaleString('ru', {weekday: 'short'});
-  // const firstDayOfWeek = new Date(date.setDate(first)).toLocaleString('ru', {weekday: 'short'});
-  
-  const getDays = [];
+  console.log(date.formate);
+  const first = date.getDate() - date.getDay(); 
+  const arrDays = [];
   for(let day = 1; day <= 7; day++){
-    getDays.push(
+    arrDays.push(
       new Date(date.setDate(first + day))
-  )}
-
-  const getDayOfWeek = getDays.map((getDay, index) => {
-    return <WeekOfDays key={index}>{getDay.toLocaleString('ru', {weekday: 'short'})}</WeekOfDays>
-  })
-  console.log(getDays);
+      )}
+      
+      const getDayOfWeek = arrDays.map((getDay, index) => {
+        return <WeekOfDays key={index}>{getDay.toLocaleString('ru', {weekday: 'short'})}</WeekOfDays>
+      })
+      const getDayOfWeekValue = arrDays.map((getDay, index) => {
+        return <WeekDayValue key={index}>{getDay.toLocaleString('ru', {day: 'numeric'})}</WeekDayValue>
+      })
+      const todayMonth = date.toLocaleString('ru', {month: 'long'});
+      const todayYear = date.getFullYear();
+    // const todayMy = (todayMonth, todayYear) => {
+    //   return (<div>{todayMonth}</div>
+    //   <div>{todayYear}</div>
+    // )}
    return (
     <HeadContainer>
      <WeekContainer>
-      {getDayOfWeek}
-
+      {getDayOfWeek}{getDayOfWeekValue}
      </WeekContainer>
 
+      <NavCurrentMonth>
+          <PrevWeek/>
+          <Month>
+            {todayMonth}
+          </Month>
+      <Year>
+        {todayYear}
+      </Year>
       
-      <NextWeek/>
-      <PrevWeek/>
+         <NextWeek/>
+      </NavCurrentMonth>
+     
     </HeadContainer>
   );
 };

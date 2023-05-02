@@ -7,7 +7,6 @@ import CalendarBody from "../components/calendarbody/CalendarBody";
 
 const CalendarWraper = styled.div`
     text-align: center;
-    height: 100vh;
     max-width: 740px;
     background-color: #fff;
     margin: auto;

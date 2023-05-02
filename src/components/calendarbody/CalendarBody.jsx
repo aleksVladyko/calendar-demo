@@ -38,11 +38,8 @@ cursor: pointer;
 `;
 const CalendarBody = () => {
 
-    const startHour = 1;
-    const endHour = 23;
-
-    const [timeOfDays, setTimeOfDays] = useState([]);
-    const [timeHour, setTimeHour] = useState([]);
+    const startHour = 8;
+    const endHour = 21;
     const hour = [];
     for (let getHour = startHour; getHour <= endHour; getHour++) {
         hour.push(getHour.toString().padStart(2, "0") + ":00");
