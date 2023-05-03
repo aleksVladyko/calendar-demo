@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import arrow from "../../img/arrow.svg";
 import * as dateFns from "date-fns";
+import { Event } from "../calendarbody/CalendarBody";
 
 const HeadContainer = styled.div`
     background-color: #eee;
@@ -70,8 +71,31 @@ const CalendarHead = () => {
     const [date, setDate] = useState(new Date());
     const first = date.getDate() - date.getDay();
     const firstDay = dateFns.startOfMonth(date);
+    const lastDay = dateFns.lastDayOfMonth(date);
+    const startWeek = dateFns.startOfWeek(firstDay, { weekStartsOn: 1 });
+    const endWeek = dateFns.lastDayOfWeek(lastDay, { weekStartsOn: 1 });
+    const endTodayWeek = dateFns.endOfWeek(firstDay, { weekStartsOn: 1 });
 
-    console.log(firstDay);
+    const allDayOfMonth = dateFns.eachDayOfInterval(
+        {
+            start: startWeek,
+            end: endWeek,
+        },
+        { weekStartsOn: 1 }
+    );
+
+    const dayOfWeek = dateFns.eachDayOfInterval(
+        {
+            start: startWeek,
+            end: endTodayWeek,
+        },
+        { weekStartsOn: 1 }
+    );
+
+  
+      console.log(dayOfWeek);
+    console.log(allDayOfMonth);
+
     const arrDays = [];
     for (let day = 1; day <= 7; day++) {
         arrDays.push(new Date(date.setDate(first + day)));

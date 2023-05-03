@@ -29,7 +29,7 @@ grid-auto-rows: 45px;
 
 `;
 
-const Event = styled.div`
+export const Event = styled.div`
 bottom: -12px;
 display: flex;
 justify-content: center;
@@ -54,65 +54,8 @@ const CalendarBody = () => {
         <Body>
             <BodyTime>{getTime}</BodyTime>
             <BodyEvent>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
-                <Event>qwer</Event>
+                
+                
             </BodyEvent>
         </Body>
     );
