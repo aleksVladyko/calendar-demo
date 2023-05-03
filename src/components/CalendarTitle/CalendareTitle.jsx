@@ -3,11 +3,11 @@ import plus from "../../img/plus.svg"
 
 
 const HeaderWrapper = styled.header`
+position: fixed;
   height: 80px;
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
+  max-width: 740px;
+  width: 100%;
+  z-index: 100;
   background-color: #fff;
 `;
 

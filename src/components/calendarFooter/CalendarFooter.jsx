@@ -9,7 +9,7 @@ const CalendarFooter = () => {
         max-width: 740px;
         height: 80px;
         font-size: 2rem;
-        // z-index: 100;
+         z-index: 100;
         background-color: #eee;
         @media (max-width: 600px) {
             margin: auto;

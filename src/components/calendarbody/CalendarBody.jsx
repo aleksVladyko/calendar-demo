@@ -2,6 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const Body = styled.div`
+margin-top: 80px;
+  margin-bottom: 80px;
 display: grid;
 grid-template-columns: 60px 1fr;
 `;
