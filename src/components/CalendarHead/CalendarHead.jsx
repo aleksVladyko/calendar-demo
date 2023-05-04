@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import arrow from "../../img/arrow.svg";
 import * as dateFns from "date-fns";
-import { Event } from "../calendarbody/CalendarBody";
+
 
 const HeadContainer = styled.div`
     background-color: #eee;
@@ -25,17 +25,24 @@ const WeekOfDays = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 40px;
 `;
 const WeekDayValue = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
+    height: 40px;
     font-size: 26px;
     cursor: pointer;
 `;
-const Month = styled.div``;
-const Year = styled.div``;
+const Month = styled.div`
+    display: flex;
+    align-items: center;
+`;
+const Year = styled.div`
+    display: flex;
+    align-items: center;
+`;
 
 const NavCurrentMonth = styled.div`
     display: flex;
@@ -53,6 +60,7 @@ const NextWeek = styled.div`
     background-size: 25px 25px;
     background-repeat: no-repeat;
     background-position: 50%;
+
     width: 40px;
     height: 40px;
     margin: auto;
@@ -66,10 +74,13 @@ const NextWeek = styled.div`
 const PrevWeek = styled(NextWeek)`
     transform: rotate(180deg);
 `;
+const formatOfYear = "yyyy";
+const formatOfMonth = "MMMM";
+const formatOfWeek = "eeeee";
+const formatOfDay = "d";
 
 const CalendarHead = () => {
     const [date, setDate] = useState(new Date());
-    const first = date.getDate() - date.getDay();
     const firstDay = dateFns.startOfMonth(date);
     const lastDay = dateFns.lastDayOfMonth(date);
     const startWeek = dateFns.startOfWeek(firstDay, { weekStartsOn: 1 });
@@ -91,46 +102,58 @@ const CalendarHead = () => {
         },
         { weekStartsOn: 1 }
     );
+   
+    const weeks = dateFns.eachWeekOfInterval(
+        {
+            start: firstDay,
+            end: lastDay,
+        },
+        { weekStartsOn: 1 }
+    );
+   
+console.log(weeks);
+    // const arrDays = [];
+    // for (let day = 1; day <= 7; day++) {
+    //     arrDays.push(new Date(date.setDate(first + day)));
+    // }
 
-  
-      console.log(dayOfWeek);
-    console.log(allDayOfMonth);
-
-    const arrDays = [];
-    for (let day = 1; day <= 7; day++) {
-        arrDays.push(new Date(date.setDate(first + day)));
-    }
-
-    const getDayOfWeek = arrDays.map((getDay, index) => {
-        return (
-            <WeekOfDays key={index}>
-                {getDay.toLocaleString("ru", { weekday: "short" })}
-            </WeekOfDays>
-        );
-    });
-    const getDayOfWeekValue = arrDays.map((getDay, index) => {
-        return (
-            <WeekDayValue key={index} id="day">
-                {getDay.toLocaleString("ru", { day: "numeric" })}
-            </WeekDayValue>
-        );
-    });
-    const todayMonth = date.toLocaleString("ru", { month: "long" });
-    const todayYear = date.getFullYear();
+    // const getDayOfWeek = arrDays.map((getDay, index) => {
+    //     return (
+    //         <WeekOfDays key={index}>
+    //             {getDay.toLocaleString("ru", { weekday: "short" })}
+    //         </WeekOfDays>
+    //     );
+    // });
+    // const getDayOfWeekValue = arrDays.map((getDay, index) => {
+    //     return (
+    //         <WeekDayValue key={index} id="day">
+    //             {getDay.toLocaleString("ru", { day: "numeric" })}
+    //         </WeekDayValue>
+    //     );
+    // });
+    
 
     return (
         <HeadContainer>
             <WeekContainer>
-                {getDayOfWeek}
-                {getDayOfWeekValue}
+                {dayOfWeek.map((dayweek) => (
+                    <WeekOfDays key={dayweek}>
+                        {dateFns.format(dayweek, formatOfWeek)}
+                    </WeekOfDays>
+                ))}
+                {dayOfWeek.map((dayvalue, index) => (
+                    <WeekDayValue key={index}>
+                        {dateFns.format(dayvalue, formatOfDay)}
+                    </WeekDayValue>
+                ))}
             </WeekContainer>
 
             <NavCurrentMonth>
                 <PrevWeek />
-                <Month>{todayMonth}</Month>
-                <Year>{todayYear}</Year>
+                <Month>{dateFns.format(date, formatOfMonth)}</Month>
+                <Year>{dateFns.format(date, formatOfYear)}</Year>
 
-                <NextWeek />
+                <NextWeek onClick={() => setDate(dateFns.addDays(firstDay, 7))} />
             </NavCurrentMonth>
         </HeadContainer>
     );
