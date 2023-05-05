@@ -3,7 +3,6 @@ import styled from "styled-components";
 import arrow from "../../img/arrow.svg";
 import * as dateFns from "date-fns";
 
-
 const HeadContainer = styled.div`
     background-color: #eee;
     position: sticky;
@@ -32,8 +31,11 @@ const WeekDayValue = styled.div`
     justify-content: center;
     align-items: center;
     height: 40px;
+    width: 50px;
+    margin: auto;
     font-size: 26px;
     cursor: pointer;
+    border-radius: 50%;
 `;
 const Month = styled.div`
     display: flex;
@@ -77,83 +79,42 @@ const PrevWeek = styled(NextWeek)`
 const formatOfYear = "yyyy";
 const formatOfMonth = "MMMM";
 const formatOfWeek = "eeeee";
-const formatOfDay = "d";
+
 
 const CalendarHead = () => {
     const [date, setDate] = useState(new Date());
-    const firstDay = dateFns.startOfMonth(date);
-    const lastDay = dateFns.lastDayOfMonth(date);
-    const startWeek = dateFns.startOfWeek(firstDay, { weekStartsOn: 1 });
-    const endWeek = dateFns.lastDayOfWeek(lastDay, { weekStartsOn: 1 });
-    const endTodayWeek = dateFns.endOfWeek(firstDay, { weekStartsOn: 1 });
-
-    const allDayOfMonth = dateFns.eachDayOfInterval(
+    const startWeek = dateFns.startOfWeek(date, { weekStartsOn: 1 });
+    const endWeek = dateFns.lastDayOfWeek(date, { weekStartsOn: 1 });
+    const dayOfWeek = dateFns.eachDayOfInterval(
         {
             start: startWeek,
             end: endWeek,
         },
         { weekStartsOn: 1 }
     );
-
-    const dayOfWeek = dateFns.eachDayOfInterval(
-        {
-            start: startWeek,
-            end: endTodayWeek,
-        },
-        { weekStartsOn: 1 }
-    );
-   
-    const weeks = dateFns.eachWeekOfInterval(
-        {
-            start: firstDay,
-            end: lastDay,
-        },
-        { weekStartsOn: 1 }
-    );
-   
-console.log(weeks);
-    // const arrDays = [];
-    // for (let day = 1; day <= 7; day++) {
-    //     arrDays.push(new Date(date.setDate(first + day)));
-    // }
-
-    // const getDayOfWeek = arrDays.map((getDay, index) => {
-    //     return (
-    //         <WeekOfDays key={index}>
-    //             {getDay.toLocaleString("ru", { weekday: "short" })}
-    //         </WeekOfDays>
-    //     );
-    // });
-    // const getDayOfWeekValue = arrDays.map((getDay, index) => {
-    //     return (
-    //         <WeekDayValue key={index} id="day">
-    //             {getDay.toLocaleString("ru", { day: "numeric" })}
-    //         </WeekDayValue>
-    //     );
-    // });
-    
-
     return (
         <HeadContainer>
             <WeekContainer>
-                {dayOfWeek.map((dayweek) => (
-                    <WeekOfDays key={dayweek}>
+                {dayOfWeek.map((dayweek, i) => (
+                    <WeekOfDays key={i}>
                         {dateFns.format(dayweek, formatOfWeek)}
                     </WeekOfDays>
                 ))}
                 {dayOfWeek.map((dayvalue, index) => (
-                    <WeekDayValue key={index}>
-                        {dateFns.format(dayvalue, formatOfDay)}
+                    <WeekDayValue key={index} style={{color: 'white', background: 'red'}}>
+                        {dayvalue.getDate()}
                     </WeekDayValue>
                 ))}
             </WeekContainer>
 
             <NavCurrentMonth>
-                <PrevWeek />
+                <PrevWeek
+                    onClick={() => setDate(dateFns.previousMonday(date))}
+                />
                 <Month>{dateFns.format(date, formatOfMonth)}</Month>
                 <Year>{dateFns.format(date, formatOfYear)}</Year>
 
-                <NextWeek onClick={() => setDate(dateFns.addDays(firstDay, 7))} />
+                <NextWeek onClick={() => setDate(dateFns.nextMonday(date))} />
             </NavCurrentMonth>
         </HeadContainer>
     );
