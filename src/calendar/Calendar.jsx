@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import * as dateFns from "date-fns";
 import {
     HeadContainer,
@@ -28,7 +28,10 @@ const formatOfWeek = "eeeee";
 const Calendar = () => {
     const [date, setDate] = useState(new Date());
     const [state, setState] = useState();
-    
+    const [myId, setMyId] = useState(1);
+    const [events, setEvents] = useState([]);
+    // const [handleEvents, setHandleEvents] = useState();
+
     const startWeek = dateFns.startOfWeek(date, { weekStartsOn: 1 });
     const endWeek = dateFns.lastDayOfWeek(date, { weekStartsOn: 1 });
 
@@ -50,21 +53,38 @@ const Calendar = () => {
         },
         { weekStartsOn: 1 }
     );
-    
 
     const changeDay = (event) => {
         setState(event.currentTarget.getAttribute("data-date"));
     };
+
     const createEvent = () => {
         let inputDate = window.prompt("Enter event time: YYYY-MM-DD HH:mm:ss");
-        console.log(inputDate);
+        let eventStr = dateFns.isMatch(inputDate, "yyyy-MM-dd HH:mm:ss");
+        if (eventStr) {
+            let newIventDate = dateFns.lightFormat(
+                new Date(inputDate),
+                "yyyy-MM-dd HH:mm:ss"
+            );
+            const newEvent = {
+                id: myId,
+                startEvent: dateFns.subHours(new Date(newIventDate), 1),
+                endEvent: dateFns.addHours(new Date(newIventDate), 1),
+                description: "addEvent",
+            };
+            setMyId(myId + 1);
+            setEvents([...events, newEvent]);
+        } else {
+            alert("Date is invalid");
+        }
     };
+   
     return (
         <CalendarWraper>
             <HeaderWrapper>
                 <HeaderText>Interview Calendar</HeaderText>
                 <HeaderAddWrapper>
-                    <HeaderAdd onClick={() => createEvent()} />
+                    <HeaderAdd onClick={createEvent} />
                 </HeaderAddWrapper>
             </HeaderWrapper>
             <HeadContainer>
@@ -76,7 +96,7 @@ const Calendar = () => {
                     ))}
                     {dayOfWeek.map((dayvalue, index) => (
                         <WeekDayValue
-                            date={date}
+                            onClick={changeDay}
                             key={index}
                             active={dateFns.isToday(dayvalue)}
                         >
@@ -100,18 +120,18 @@ const Calendar = () => {
                 </NavCurrentMonth>
             </HeadContainer>
 
-            <Body>
+            <Body >
                 <BodyTime>
                     {hour.map((time, i) => {
                         return <Time key={i}>{time}</Time>;
                     })}
                 </BodyTime>
-                <BodyEvent>
+                <BodyEvent >
                     {event.map((div, i) => {
-                        return <Event 
-                        key={i}
-                        
-                        ></Event>;
+                        return <Event  
+                        key={i}>
+                            {div}
+                            </Event>;
                     })}
                 </BodyEvent>
             </Body>
