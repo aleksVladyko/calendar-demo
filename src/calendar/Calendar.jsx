@@ -20,31 +20,19 @@ import {
 } from "../constats";
 
 import { Body, BodyTime, BodyEvent, Event, Time } from "../constats";
+import DayEvents from "./DayEvents";
 
 const formatOfYear = "yyyy";
 const formatOfMonth = "MMMM";
 const formatOfWeek = "eeeee";
 
-const Calendar = () => {
+const Calendar = (props) => {
     const [date, setDate] = useState(new Date());
-    const [state, setState] = useState();
     const [myId, setMyId] = useState(1);
     const [events, setEvents] = useState([]);
-    // const [handleEvents, setHandleEvents] = useState();
-
+    const [event, setEvent] = useState(-1);
     const startWeek = dateFns.startOfWeek(date, { weekStartsOn: 1 });
     const endWeek = dateFns.lastDayOfWeek(date, { weekStartsOn: 1 });
-
-    const startHour = 8;
-    const endHour = 21;
-    const hour = [];
-    for (let getHour = startHour; getHour <= endHour; getHour++) {
-        hour.push(getHour.toString().padStart(2, "0") + ":00");
-    }
-    const event = [];
-    for (let divEvent = 1; divEvent <= 98; divEvent++) {
-        event.push(divEvent);
-    }
 
     const dayOfWeek = dateFns.eachDayOfInterval(
         {
@@ -53,10 +41,6 @@ const Calendar = () => {
         },
         { weekStartsOn: 1 }
     );
-
-    const changeDay = (event) => {
-        setState(event.currentTarget.getAttribute("data-date"));
-    };
 
     const createEvent = () => {
         let inputDate = window.prompt("Enter event time: YYYY-MM-DD HH:mm:ss");
@@ -78,7 +62,7 @@ const Calendar = () => {
             alert("Date is invalid");
         }
     };
-   
+
     return (
         <CalendarWraper>
             <HeaderWrapper>
@@ -96,7 +80,6 @@ const Calendar = () => {
                     ))}
                     {dayOfWeek.map((dayvalue, index) => (
                         <WeekDayValue
-                            onClick={changeDay}
                             key={index}
                             active={dateFns.isToday(dayvalue)}
                         >
@@ -120,8 +103,13 @@ const Calendar = () => {
                 </NavCurrentMonth>
             </HeadContainer>
 
-            <Body >
-                <BodyTime>
+            <DayEvents
+                monday={startWeek}
+                events={events}
+                event={event}
+                setEvent={setEvent}
+            />
+            {/* <BodyTime>
                     {hour.map((time, i) => {
                         return <Time key={i}>{time}</Time>;
                     })}
@@ -133,13 +121,23 @@ const Calendar = () => {
                             {div}
                             </Event>;
                     })}
-                </BodyEvent>
-            </Body>
+                </BodyEvent> */}
+
             <Footer>
                 <FooterToday onClick={() => setDate(new Date())}>
                     Today
                 </FooterToday>
-                <FooterDelete>Delete</FooterDelete>
+                <FooterDelete
+                    visible={event >= 0}
+                    onClick={() => {
+                        const del = [...events];
+                        del.splice(event, 1);
+                        setEvents(del);
+                        setEvent(-1);
+                    }}
+                >
+                    Delete
+                </FooterDelete>
             </Footer>
         </CalendarWraper>
     );

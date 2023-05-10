@@ -1,7 +1,13 @@
 import styled from "styled-components";
 import arrow from "./img/arrow.svg";
-import plus from "./img/plus.svg"
+import plus from "./img/plus.svg";
 
+export const borderColor = "#e6e6e6";
+export const accentColor = "#ff3131";
+export const activeColor = "#b3b7ff";
+export const eventColor = "#ebecff";
+export const timeColor = "#c0c0c0";
+export const bgColor = "#f6f6f6";
 export const CalendarWraper = styled.div`
     text-align: center;
     max-width: 740px;
@@ -11,36 +17,36 @@ export const CalendarWraper = styled.div`
     // box-shadow: inset 0 0 15px gray;
 `;
 export const HeaderWrapper = styled.header`
-position: fixed;
-  height: 80px;
-  max-width: 740px;
-  width: 100%;
-  z-index: 100;
-  background-color: #fff;
+    position: fixed;
+    height: 80px;
+    max-width: 740px;
+    width: 100%;
+    z-index: 100;
+    background-color: #fff;
 `;
 
 export const HeaderText = styled.div`
-  text-align: left;
-  font-size: 24px;
-  padding: 25px 0 0 50px;
-  float: left;
-  @media (max-width: 600px) {
-    font-size: 20px;
-  }
+    text-align: left;
+    font-size: 24px;
+    padding: 25px 0 0 50px;
+    float: left;
+    @media (max-width: 600px) {
+        font-size: 20px;
+    }
 `;
 
 export const HeaderAddWrapper = styled.div`
-  text-align: right;
-  font-size: 24px;
-  padding: 25px 50px 0 0;
-  float: right;
+    text-align: right;
+    font-size: 24px;
+    padding: 25px 50px 0 0;
+    float: right;
 `;
 export const HeaderAdd = styled.div`
-  width: 24px;
-  height: 24px;
-  background-image: url(${plus});
-  background-size: contain;
-  cursor: pointer;
+    width: 24px;
+    height: 24px;
+    background-image: url(${plus});
+    background-size: contain;
+    cursor: pointer;
 `;
 
 export const Footer = styled.div`
@@ -71,6 +77,7 @@ export const FooterDelete = styled.div`
     margin-left: auto;
     padding-right: 50px;
     padding-top: 25px;
+    display: ${(props) => (props.visible ? "block" : "none")};
 `;
 export const HeadContainer = styled.div`
     background-color: #eee;
@@ -186,12 +193,12 @@ export const Event = styled.div`
     border-right: 2px solid #e6e6e6;
     border-bottom: 2px solid #e6e6e6;
     cursor: pointer;
-    
-    ${({ active }) =>
-        active &&
-        `
-    
-    background-color: blue;
-    color: #fff;
-  `}
+    background: ${(props) =>
+        props.event && props.selected
+            ? activeColor
+            : props.event && !props.selected
+            ? eventColor
+            : "inherit"};
+    cursor: ${(props) => (props.event ? "pointer" : "inherit")};
+    background-clip: content-box;
 `;
