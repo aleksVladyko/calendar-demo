@@ -109,26 +109,12 @@ const Calendar = (props) => {
                 event={event}
                 setEvent={setEvent}
             />
-            {/* <BodyTime>
-                    {hour.map((time, i) => {
-                        return <Time key={i}>{time}</Time>;
-                    })}
-                </BodyTime>
-                <BodyEvent >
-                    {event.map((div, i) => {
-                        return <Event  
-                        key={i}>
-                            {div}
-                            </Event>;
-                    })}
-                </BodyEvent> */}
-
             <Footer>
                 <FooterToday onClick={() => setDate(new Date())}>
                     Today
                 </FooterToday>
                 <FooterDelete
-                    visible={event >= 0}
+                    visible={events.length}
                     onClick={() => {
                         const del = [...events];
                         del.splice(event, 1);

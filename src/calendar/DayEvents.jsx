@@ -16,20 +16,20 @@ const DayEvents = (props) => {
    const cellArray = []
    for (let i = 0; i < timeArray.length-1; i++) {
      for (let j = 0; j < 7; j++) {
-    //    cellArray.push(addHours(addDays(monday, j), i))
+   
        cellArray.push(dateFns.addHours(dateFns.addDays(monday, j), i))
      }
    }
    const checkInterval = (e, timeStart, timeEnd) => e >= timeStart && e < timeEnd;
 
    return (
-    <Body>
+    <Body >
       <BodyTime>
         {timeArray.map((val, i) => <Time key={i}>{val}</Time>)}
       </BodyTime>
-      <BodyEvent {...props}>
+      <BodyEvent >
       {
-          //заполняем сетку событий
+
           cellArray.map((t, i) => 
             <Event {...props}
               time={t}

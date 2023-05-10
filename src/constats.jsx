@@ -8,6 +8,7 @@ export const activeColor = "#b3b7ff";
 export const eventColor = "#ebecff";
 export const timeColor = "#c0c0c0";
 export const bgColor = "#f6f6f6";
+
 export const CalendarWraper = styled.div`
     text-align: center;
     max-width: 740px;
@@ -164,6 +165,13 @@ export const Body = styled.div`
     margin-bottom: 80px;
     display: grid;
     grid-template-columns: 60px 1fr;
+    background: ${(props) =>
+        props.event && props.selected
+            ? activeColor
+            : props.event && !props.selected
+            ? eventColor
+            : "inherit"};
+    cursor: ${(props) => (props.event ? "pointer" : "inherit")};
 `;
 
 export const BodyTime = styled.div`
@@ -183,6 +191,7 @@ export const BodyEvent = styled.div`
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-auto-rows: 45px;
+    
 `;
 
 export const Event = styled.div`
@@ -193,12 +202,5 @@ export const Event = styled.div`
     border-right: 2px solid #e6e6e6;
     border-bottom: 2px solid #e6e6e6;
     cursor: pointer;
-    background: ${(props) =>
-        props.event && props.selected
-            ? activeColor
-            : props.event && !props.selected
-            ? eventColor
-            : "inherit"};
-    cursor: ${(props) => (props.event ? "pointer" : "inherit")};
-    background-clip: content-box;
+   
 `;
