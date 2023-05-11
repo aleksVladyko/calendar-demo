@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/calendar-demo/static/css/main.ae028f78.css",
+    "main.js": "/calendar-demo/static/js/main.988fb7a8.js",
+    "static/js/787.e173237b.chunk.js": "/calendar-demo/static/js/787.e173237b.chunk.js",
+    "index.html": "/calendar-demo/index.html",
+    "static/media/arrow.svg": "/calendar-demo/static/media/arrow.e3db722031feae22ccbe7723a7568249.svg",
+    "static/media/plus.svg": "/calendar-demo/static/media/plus.c80a55b25bbda990442ed212e547bfd9.svg",
+    "main.ae028f78.css.map": "/calendar-demo/static/css/main.ae028f78.css.map",
+    "main.988fb7a8.js.map": "/calendar-demo/static/js/main.988fb7a8.js.map",
+    "787.e173237b.chunk.js.map": "/calendar-demo/static/js/787.e173237b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ae028f78.css",
+    "static/js/main.988fb7a8.js"
+  ]
+}
