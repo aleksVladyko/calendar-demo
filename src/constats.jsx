@@ -194,13 +194,17 @@ export const BodyEvent = styled.div`
     
 `;
 
-export const Event = styled.div`
-    bottom: -12px;
+ export const Event = styled.div`
+    border-top: ${props => props.top ? 'none' : `2px solid ${borderColor}`};
     display: flex;
     justify-content: center;
     align-items: center;
     border-right: 2px solid #e6e6e6;
     border-bottom: 2px solid #e6e6e6;
-    cursor: pointer;
    
+    background: ${
+    props => props.events && props.selected ? activeColor : 
+    props.event && !props.selected ? eventColor : 'inherit'};
+    cursor: ${props => props.events ? 'pointer' : 'inherit'};
+    background-clip: content-box;
 `;
